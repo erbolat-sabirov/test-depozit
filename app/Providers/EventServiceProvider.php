@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\TransactionCreateEvent;
+use App\Listeners\TransactionCreateListener;
+use App\Models\Depozit;
+use App\Models\User;
+use App\Observers\DepozitObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        TransactionCreateEvent::class => [
+            TransactionCreateListener::class
+        ]
     ];
 
     /**
@@ -27,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        User::observe(UserObserver::class);
+        Depozit::observe(DepozitObserver::class);
     }
 }
