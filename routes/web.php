@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BalanceReplenishmentController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DepozitController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +39,5 @@ Route::group([
     Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
 
 });
+
+Route::get('country/{country}/users', [CountryController::class, 'index']);

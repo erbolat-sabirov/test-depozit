@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Depozit::class);
     }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'user_company')->withPivot(['date_in', 'date_out']);
+    }
 }
